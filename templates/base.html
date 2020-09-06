@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Welcome to Eco World</title>
+<!-- Stylesheets -->
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+<link href="{% static 'css/revolution-slider.css' %}" rel="stylesheet">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="top-bar">
+                <div class="top-container">
+                    <!--Info Outer-->
+                     <div class="info-outer">
+                         <!--Info Box-->
+                        <ul class="info-box clearfix">
+                            <li><span class="icon flaticon-interface"></span><a href="mailto:info@ecohubus.com">info@ecohubus.com</a></li>
+                            <li><span class="icon flaticon-technology-5"></span><a href="tel:+13614559530">+1 361-455-9530</a></li>
+                            {% include "navbar.html" %}
+                            <li class="social-links-one">
+                                <a href="https://www.facebook.com/EcoWorld-LLC-1410038512469539" target='_blank' class="facebook img-circle"><span class="fa fa-facebook-f"></span></a>
+                                <a href="#" class="twitter img-circle"><span class="fa fa-twitter"></span></a>
+                                <a href="https://www.instagram.com/ecoworld_llc/" target="_blank" class="Instagram img-circle"><span class="fa fa-instagram"></span></a>
+                            </li>
+                        </ul>
+                     </div>
+                </div>
+            </div>
+            <!-- Header Upper -->
+            <div class="header-upper">
+                <div class="auto-container clearfix">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="/"><img src="{% static 'images/logo-1.png' %}" alt="Greenture"></a>
+                     </div>
+                     
+                     <!--Nav Outer-->
+                    <div class="nav-outer clearfix">
+                        
+                        <a href="/contact/" class="theme-btn btn-donate">Contact Us</a>
+                        
+                        <!-- Main Menu -->
+                        <nav class="main-menu">
+                            
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->    	
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            
+                            <div class="navbar-collapse collapse clearfix">
+                                <ul class="navigation">
+                                
+                                    <li class="current"><a href="/">Home</a> </li>
+                                    
+                                    <!-- <li class="dropdown"><a href="#">Products</a>
+                                        <ul>
+                                            <li><a href="plates.html">Plates</a></li>
+                                            <li><a href="bowl.html">Bowls</a></li>
+                                            <li><a href="straws.html">Straws</a></li>
+                                            <li><a href="togoboxes.html">Togoboxes</a></li>
+                                            <li><a href="containers.html">Containers</a></li>
+                                            <li><a href="cutlery.html">Cutlery</a></li>
+                                            <li><a href="cups.html">Cups</a></li>
+                                            <li><a href="garbagebags.html">Garbage Bags</a></li>
+                                            <li><a href="carrybags.html">Carry Bags</a></li>
+                                            <li><a href="poopbags.html">Poop Bags</a></li>
+                                            <li><a href="bambootoothbrush.html">Bamboo Tooth Brush</a></li>
+                                            
+                                            
+                                            
+                                           <li><a href="eco-friendly-biodegradable-compostable-paper-take-out-containers.html">Biodegradable & Compostable</a></li>
+                                            <li><a href="biodegradable-and-compostable-plates.html">Biodegradable and Compostable Plates</a></li>
+                                            <li><a href="eco-friendly-ramekins.html">Eco-Friendly Ramekins</a></li>
+                                            <li><a href="biodegradable-trays.html">Biodegradable Trays</a></li>
+                                            <li><a href="compostable-trays.html">Compostable Bowls</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="masks.html">Masks</a></li> -->
+                                    <li><a href="/featured-products/">Featured Products</a></li>
+                                    <li><a href="/categories/">All Products</a></li>
+                                </ul>
+                            </div>
+                        </nav><!-- Main Menu End-->
+                        
+                    </div>
+                    
+                </div>
+            </div><!-- Header Top End -->
+            
+        </header>
+
+        <div class="mt-5 pt-4">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            </div>
+        
+        
+
+        <!--End Main Header -->
+    
+        {% block content %}
+        {% endblock content %}
+
+        <section class="subscribe-intro">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <!--Column-->
+                    <div class="column col-md-9 col-sm-12 col-xs-12">
+                        <h2>Subcribe for Newsletter</h2>
+                        For Latest Product Updates and exclusive subscriber offers 
+                    </div>
+                    <!--Column-->
+                    <div class="column col-md-3 col-sm-12 col-xs-12">
+                        <div class="text-right padd-top-20">
+                            <form method="post" action="/subscribe/" id="contact-form">
+                                {% csrf_token %}
+                                    <button class="theme-btn btn-style-one">Subscribe Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+
+        <!-- Main Footer -->
+        <footer class="main-footer" style="background-image:url({% static 'images/background/footer-bg.jpg' %});">
+    	
+            <!--Footer Upper-->        
+            <div class="footer-upper">
+                <div class="auto-container">
+                    <div class="row clearfix">
+                        
+                        <!--Two 4th column-->
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="row clearfix">
+                                <div class="col-lg-8 col-sm-6 col-xs-12 column">
+                                    <div class="footer-widget about-widget">
+                                        <div class="logo"><a href="/"><img src="{% static 'images/logo-2.png' %}" class="img-responsive" alt=""></a></div>
+                                        
+                                        
+                                        <ul class="contact-info">
+                                            <li><span class="icon fa fa-map-marker"></span>  15065 Sunnyside ave Morgan Hill CA 95037 1202 Apollo way Sunnyvale , CA 94085 </li>
+                                            <li><a href="tel:+13614559530"><span class="icon fa fa-phone"></span>  +1 361-455-9530 </a></li>
+                                            <li><a href="mailto:info@ecohubus.com"><span class="icon fa fa-envelope-o"></span>  info@ecohubus.com </a></li>
+                                            <li><a href="www.ecoworldus.com"><span class="icon fa fa-globe"></span>   www.ecoworldus.com </a> </li>
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <!--Footer Column-->
+                                <div class="col-lg-4 col-sm-6 col-xs-12 column">
+                                    <h2>UseFull Link</h2>
+                                    <div class="footer-widget links-widget">
+                                        <ul>
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="/featured-products/">Featured Products</a></li>
+                                            <!-- <li><a href="/categories/">All Products</a></li> -->
+                                        </ul>
+            
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--Two 4th column End-->
+                        
+                        <!--Two 4th column-->
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="row clearfix">
+                                
+                                
+                                <div class="col-lg-5 col-sm-6 col-xs-12 column">
+                                    <div class="footer-widget links-widget">
+                                        <h2><br></h2>
+                                        <ul>
+                                            <li><a href="/categories/">All Products</a></li>
+                                            <li><a href="/contact/">Contact Us</a></li>
+                                        </ul>
+            
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-sm-6 col-xs-12 column">
+                                     <div class="footer-widget news-widget">
+                                        <h2>About Us</h2>	
+                                            <div>Our mission is to provide the best eco-friendly to replace the single usage of plastic products for reasonable and affordable rates . Creating healthy lifestyles for the future generations .</div>     
+                                            
+                                        
+                                        <div class="social-links-two clearfix">
+                                            <!-- <a href="#" class="facebook img-circle"><span class="fa fa-facebook-f"></span></a>
+                                            <a href="#" class="twitter img-circle"><span class="fa fa-twitter"></span></a>
+                                            <a href="#" class="google-plus img-circle"><span class="fa fa-google-plus"></span></a>
+                                            <a href="#" class="linkedin img-circle"><span class="fa fa-pinterest-p"></span></a>
+                                            <a href="#" class="linkedin img-circle"><span class="fa fa-linkedin"></span></a> -->
+
+
+                                            <a href="https://www.facebook.com/EcoWorld-LLC-1410038512469539" target='_blank' class="facebook img-circle"><span class="fa fa-facebook-f"></span></a>
+                                            <a href="#" class="twitter img-circle"><span class="fa fa-twitter"></span></a>
+                                            <a href="https://www.instagram.com/ecoworld_llc/" target="_blank" class="Instagram img-circle"><span class="fa fa-instagram"></span></a>
+            
+
+                                        </div>                            
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!--Footer Bottom-->
+            <div class="footer-bottom">
+                <div class="auto-container clearfix">
+                    <!--Copyright-->
+                    <div class="copyright text-center">© Copyright 2020. Eco World. All Rights Reserved</div>
+                </div>
+            </div>
+            
+        </footer>
+        
+    </div>
+    <!--End pagewrapper-->
+    
+    
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="fa fa-long-arrow-up"></span></div>
+    
+    <script src="{% static 'js/jquery.js' %}"></script> 
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/revolution.min.js' %}"></script>
+    <script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
+    <script src="{% static 'js/jquery.fancybox-media.js' %}"></script>
+    <script src="{% static 'js/owl.js' %}"></script>
+    <script src="{% static 'js/wow.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+<section class="text-gray-700 body-font">
+    <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+      <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+        <h1 class="text-gray-900 text-4xl font-medium title-font mb-5"><b>Checkout form</b></h1>
+            <form method="POST" class="card-body">
+                {% csrf_token %}
+
+                <h2 class="text-gray-900 text-2xl font-medium title-font mb-5">Shipping address</h2>
+                <div class='hideable_shipping_form'>
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="shipping_address" name="shipping_address" placeholder="Address" type="text"><br><br>
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="shipping_address2" name="shipping_address2" placeholder="Address 2 (optional)" type="text">
+                <div class="container px-5 py-24 mx-auto">
+                    <div class="flex flex-wrap -m-12">
+                        <div class="p-12 md:w-1/2 flex flex-col items-start">
+                            {{ form.shipping_country }}
+                        </div>
+                        <div class="p-12 md:w-1/2 flex flex-col items-start">
+                            <input class="bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="shipping_zip" name="shipping_zip" placeholder="Zip" type="text">
+                        </div>
+                    </div>
+                </div>
+                <input name="same_billing_address" id="same_billing_address" type="checkbox"> Billing address is the same as my shipping address<br>
+                <input name="set_default_shipping" id="set_default_shipping" type="checkbox"> Save as default shipping address<br>
+                </div>
+                {% if default_shipping_address %}
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="use_default_shipping" id="use_default_shipping"> Use default shipping address: <b>{{ default_shipping_address.street_address|truncatechars:10 }}</b>
+                </div>
+                {% endif %}
+                <hr>
+                <h2 class="text-gray-900 text-2xl font-medium title-font mb-5">Billing Address</h2>
+                <div class='hideable_billing_form'>
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="billing_address" name="billing_address" placeholder="Address" type="text"><br><br>
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="billing_address2" name="billing_address2" placeholder="Address 2 (optional)" type="text">
+                <div class="container px-5 py-24 mx-auto">
+                    <div class="flex flex-wrap -m-12">
+                        <div class="p-12 md:w-1/2 flex flex-col items-start">
+                            {{ form.billing_country }}
+                        </div>
+                        <div class="p-12 md:w-1/2 flex flex-col items-start">
+                            <input class="bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="billing_zip" name="billing_zip" placeholder="Zip" type="text">
+                        </div>
+                    </div>
+                </div>
+                <input name="set_default_billing" id="set_default_billing" type="checkbox"> Save as default Billing address<br>
+                </div>
+                {% if default_shipping_address %}
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="use_default_billing" id="use_default_billing"> Use default Billing Address: <b>{{ default_billing_address.street_address|truncatechars:10 }}</b>
+                </div>
+                {% endif %}
+                <!-- <div class="d-block my-3">
+                  {% for value, name in form.fields.payment_option.choices %}
+                  <div class="custom-control custom-radio">
+                    <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
+                    <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                  </div>
+                  {% endfor %}
+                </div> -->
+                <input id="Stripe" name="payment_option" value="S" type="hidden" class="custom-control-input" required="">  
+                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" type="submit">Continue to checkout</button>
+                <!-- <p class="text-xs text-gray-500 mt-3">Literally you probably haven't heard of them jean shorts.</p> -->
+            </form>
+            
+      </div>
+      <div class="lg:w-2/6 md:w-1/2 bg-gray-200 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+        {% include "order_snippet.html" %}
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+  <script>
+    console.log("entered")
+    var hideable_shipping_form = $('.hideable_shipping_form');
+    console.log("hideable_shipping_form", hideable_shipping_form)
+    var hideable_billing_form = $('.hideable_billing_form');
+    console.log("hideable_billing_form", hideable_billing_form)
+    var use_default_shipping = document.querySelector("input[name=use_default_shipping]");
+    console.log("use_default_shipping", use_default_shipping)
+    var use_default_billing = document.querySelector("input[name=use_default_billing]");
+    console.log("use_default_billing", use_default_billing)
+    
+    use_default_shipping.addEventListener('change', function() {
+      if (this.checked) {
+        console.log("entered function", this.checked)
+        hideable_shipping_form.hide();
+      } else {
+        hideable_shipping_form.show();
+      }
+    })
+    
+    use_default_billing.addEventListener('change', function() {
+      if (this.checked) {
+        hideable_billing_form.hide();
+      } else {
+        hideable_billing_form.show();
+      }
+    })
+    
+    </script>  
+
+{% endblock content %}

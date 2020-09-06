@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+{% load markdown_deux_tags %}
+{% block content %}
+
+<style>
+ul {
+  list-style-type: square;
+}    
+</style>
+
+<!--Page Title-->
+    <section class="page-title" style="background-image:url(images/background/page-title-bg.jpg);">
+    	<div class="auto-container">
+        	<div class="sec-title">
+                <h1><span class="normal-font">{{ object }}</span></h1>
+                <div class="bread-crumb"><a href="index.html">Home</a> / <a href="paper-straws.html">{{ object }}</a></div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!--Sidebar Page-->
+    <div class="sidebar-page">
+    	<div class="auto-container">
+        	<div class="row clearfix">
+            	
+                <!--Content Side-->	
+                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                    
+                    <!--Projects Section-->
+                    <section class="events-section event-details no-padd-bottom no-padd-top padd-right-20">
+                         
+                        <div class="column default-featured-column style-two">
+                            <article class="inner-box">
+                                <figure class="image-box">
+                                    <a href="paper-straws.html"><img src="{{ object.image.url }}"></a>
+                                </figure>
+                            </article>
+                        </div>
+                        
+                    </section>
+                    
+                </div>
+                <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                    
+                    <!--Projects Section-->
+                    <section class="events-section event-details no-padd-bottom no-padd-top padd-right-20">
+                         
+                        <div class="column default-featured-column style-two">
+                            <article>
+                                <div>
+                                    <div class="row detail-header clearfix">
+                                        <div class="col-md-8 col-sm-12">
+                                            <h3><a href="paper-straws.html"> {{ object }} </a></h3>
+                                            <div class="column-info no-margin-bottom">
+                                                <p class="lead">
+                                                    {% if object.discount_price %}
+                                                    <span class="mr-1">
+                                                      <del>${{ object.price }}</del>
+                                                    </span>
+                                                    <span>${{ object.discount_price }}</span>
+                                                    {% else %}
+                                                    <span>${{ object.price }}</span>
+                                                    {% endif %}
+                                                  </p>
+                                            </div>
+                                        </div>
+                                         <div class="col-md-4 col-sm-12 pull-right text-right">
+                                             <!-- <a href="#" class="theme-btn btn-style-two">Out of Stock</a> -->
+                                        </div>
+                                   
+    
+                                    </div>
+                                    <hr>
+                                    
+                                    <div class="text">
+                                    	<br>
+                                        <p class="bigger-text">
+                                            {{ object.description|markdown:"STYLE" }}
+                                        </p>
+                                    </div>
+                                    
+                                    
+
+
+                                    <div class="col-md-12 col-sm-12">
+                                        <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+                                            Add to cart
+                                            <i class="fa fa-shopping-cart ml-1"></i>
+                                          </a>
+                                          <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
+                                            Remove from cart
+                                          </a>
+                                    </div>
+
+                                </div>
+                            </article>
+                        </div>
+                        
+                    </section>
+                    
+                    
+                </div>
+                <!--Content Side-->
+                
+                
+            </div>
+        </div>
+    </div>
+    
+    
+    <!--Parallax Section-->    <section class="parallax-section" style="background-image:url(images/parallax/image-1.jpg);">
+    	<div class="auto-container">
+        	<div class="text-center">
+            	<h2>The Best time to <span class="theme_color">plant tree</span> is now</h2>
+            </div>
+        </div>
+    </section>
+    
+    {% endblock content %}

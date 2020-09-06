@@ -1,0 +1,28 @@
+{% load cart_template_tags %}
+
+{% if request.user.is_authenticated %}
+<li>
+  <!-- <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
+    <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
+    <i class="fas fa-shopping-cart"></i> -->
+    <!-- <span class="clearfix d-none d-sm-inline-block"> Cart </span> -->
+    <a href="{% url 'core:order-summary' %}" class="cart img-circle"><span class="fa fa-shopping-cart"> {{ request.user|cart_item_count }} </span></a>
+  </a>
+</li>
+<li>
+  <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+    <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+  </a>
+</li>
+{% else %}
+<li>
+  <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+    <span class="clearfix d-none d-sm-inline-block"> Login </span>
+  </a>
+</li>
+<li>
+  <a class="nav-link waves-effect" href="{% url 'core:signup' %}">
+    <span class="clearfix d-none d-sm-inline-block"> Signup </span>
+  </a>
+</li>
+{% endif %}

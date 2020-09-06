@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <!--Page Title-->
+    <section class="page-title" style="background-image:url({% static 'images/background/page-title-bg.jpg' %});">
+    	<div class="auto-container">
+        	<div class="sec-title">
+                <h1>Eco-Friendly Products</h1>
+                <div class="bread-crumb"><a href="/">Home</a> / <a href="#" class="current">Eco-Friendly Products</a></div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!--Events Section-->
+    <section class="events-section latest-events">
+    	<div class="auto-container">
+        	<div class="row clearfix">                
+                {% for item in items %}
+                <div class="column default-featured-column style-two col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                	<article class="inner-box">
+                		<figure class="image-box">
+                        	<a href="{{ item.get_absolute_url }}"><img src="{{ item.image.url }}" alt=""></a>
+                        </figure>
+                        <div class="content-box">
+                        	<h3><a href="{{ item.get_absolute_url }}"> {{ item.title }} </a></h3>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+
+            </div>
+            
+                                   
+        </div>
+    </section>
+    
+    
+    
+    <!--Parallax Section-->    <section class="parallax-section" style="background-image:url({% static 'images/parallax/image-1.jpg' %});">
+    	<div class="auto-container">
+        	<div class="text-center">
+            	<h2>The Best time to <span class="theme_color">plant tree</span> is now</h2>
+            </div>
+        </div>
+    </section>
+    
+
+{% endblock content %}
