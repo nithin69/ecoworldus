@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Category, Fproducts, Contact, Subscribe
+from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Category, Fproducts, Contact, Subscribe, Profile
 from django.db import models
 
 from pagedown.widgets import AdminPagedownWidget
@@ -72,5 +72,6 @@ admin.site.register(Coupon)
 admin.site.register(Refund)
 admin.site.register(Contact)
 admin.site.register(Subscribe)
+admin.site.register(Profile)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(UserProfile)

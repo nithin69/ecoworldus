@@ -1,6 +1,8 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 PAYMENT_CHOICES = (
@@ -8,10 +10,26 @@ PAYMENT_CHOICES = (
     ('P', 'PayPal')
 )
 
+class UserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "password1", "password2")
+
+    def save(self, commit=True):
+        user = super(UserCreationForm, self).save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
+
 
 class CheckoutForm(forms.Form):
     shipping_address = forms.CharField(required=False)
     shipping_address2 = forms.CharField(required=False)
+    shipping_state = forms.CharField(required=False)
+    shipping_city = forms.CharField(required=False)
     shipping_country = CountryField(blank_label='(select country)').formfield(
         required=False,
         widget=CountrySelectWidget(attrs={
@@ -21,6 +39,8 @@ class CheckoutForm(forms.Form):
 
     billing_address = forms.CharField(required=False)
     billing_address2 = forms.CharField(required=False)
+    billing_state = forms.CharField(required=False)
+    billing_city = forms.CharField(required=False)
     billing_country = CountryField(blank_label='(select country)').formfield(
         required=False,
         widget=CountrySelectWidget(attrs={

@@ -17,12 +17,39 @@
             <h1>{% trans "Sign Up" %}</h1>
             <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
             <form class="signup" id="signup_form" method="post" action="{% url 'core:signup' %}">
-              {% csrf_token %}
-              {{ form|crispy }}
+              <!-- {{ form|crispy }} -->
+              <form class="signup" id="signup_form" method="post" action="/signup/">
+                {% csrf_token %}
+                <!-- <input type="hidden" name="csrfmiddlewaretoken" value="Yh8dyrah6oLyrCazsauFSXXVT6EN0whwCn4eWc0sPr3B1fR4ejmTuULucKH8OBSc"> -->
+                  <div id="div_id_username" class="form-group"> 
+                    <label for="id_username" class="col-form-label  requiredField">
+                      Username<span style="color:red"> * </span>
+                    </label> 
+                    <div class=""> 
+                      <input type="text" name="username" maxlength="150" autofocus class="textinput textInput form-control" required id="id_username"> 
+                      <small id="hint_id_username" class="form-text text-muted">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small> 
+                    </div> 
+                  </div> 
+                  <div id="div_id_email" class="form-group"> 
+                    <label for="id_email" class="col-form-label  requiredField">
+                      Email<span style="color:red"> * </span> 
+                    </label> 
+                      <div class=""> 
+                        <input type="email" name="email" class="emailinput form-control" required id="id_email"> 
+                      </div> 
+                    </div> 
+                    <div id="div_id_password1" class="form-group"> <label for="id_password1" class="col-form-label  requiredField">
+                  Phone<span style="color:red"> * </span> </label> <div class=""> <input type="text" name="phone" class="phoneinput form-control" required id="id_phone"> </div> </div> <div id="div_id_phone" class="form-group"> <label for="id_phone" class="col-form-label  requiredField">                  
+                  Password<span style="color:red"> * </span> </label> <div class=""> <input type="password" name="password1" class="textinput textInput form-control" required id="id_password1"> </div> </div> <div id="div_id_password2" class="form-group"> <label for="id_password2" class="col-form-label  requiredField">
+                  Password confirmation<span style="color:red"> * </span> </label> <div class=""> <input type="password" name="password2" class="textinput textInput form-control" required id="id_password2"> <small id="hint_id_password2" class="form-text text-muted">Enter the same password as before, for verification.</small> </div> </div>
+                  <button class='btn btn-primary' type="submit">Sign Up &raquo;</button>
+                </form>
+  
+
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
-              <button class='btn btn-primary' type="submit">{% trans "Sign Up" %} &raquo;</button>
+              <!-- <button class='btn btn-primary' type="submit">{% trans "Sign Up" %} &raquo;</button> -->
             </form>
           </div>
         </div>

@@ -33,7 +33,8 @@ urlpatterns = [
     path('detail-product/<slug>/', views.detailCategory, name='detailCategory'),
     path('featured-products/', views.featuredProducts, name='featuredProducts'),
     path('contact/', csrf_exempt(views.contact), name='contact'),
-    path('subscribe/', views.subscribe, name='subscribe'),
+    path('subscribe/', csrf_exempt(views.subscribe), name='subscribe'),
+    path('profile/', views.profile, name='profile'),
 
     # path('accounts/signup/', views.signup, name='signup'),categoriesLst
 

@@ -136,10 +136,17 @@
                     <!--Column-->
                     <div class="column col-md-3 col-sm-12 col-xs-12">
                         <div class="text-right padd-top-20">
-                            <form method="post" action="/subscribe/" id="contact-form">
-                                {% csrf_token %}
-                                    <button class="theme-btn btn-style-one">Subscribe Now</button>
-                            </form>
+                            {% if request.user.is_authenticated %}
+                                <form method="post" action="/subscribe/" id="contact-form">
+                                    {% csrf_token %}
+                                        <button class="theme-btn btn-style-one">Subscribe Now</button>
+                                </form>
+                            {% else %}
+                                <form method="post" action="/subscribe/" id="contact-form">
+                                    <input type="text" name="subscribe_email" placeholder="Email" class="phoneinput form-control" required id="id_subscribe_email"><br>
+                                    <center><button class="theme-btn btn-style-one" type="submit">Subscribe Now</button></center>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -165,7 +172,7 @@
                                         
                                         
                                         <ul class="contact-info">
-                                            <li><span class="icon fa fa-map-marker"></span>  15065 Sunnyside ave Morgan Hill CA 95037 1202 Apollo way Sunnyvale , CA 94085 </li>
+                                            <li><span class="icon fa fa-map-marker"></span>  1919 Lawrence Ct, Kansas City, Kansas - 66103 </li>
                                             <li><a href="tel:+13614559530"><span class="icon fa fa-phone"></span>  +1 361-455-9530 </a></li>
                                             <li><a href="mailto:info@ecohubus.com"><span class="icon fa fa-envelope-o"></span>  info@ecohubus.com </a></li>
                                             <li><a href="www.ecoworldus.com"><span class="icon fa fa-globe"></span>   www.ecoworldus.com </a> </li>

@@ -1,0 +1,18 @@
+Login
+    menu - 
+        Account
+            Summary, Statment, Accounts    
+        Payments
+            Payment history
+        Fund Transfer
+            Same bank Transfer, Other Bank Transfer
+        Cheque
+            Request new Cheque book, Stop Cheque Request
+    home - 
+        Show Balance
+        
+
+Login
+
+menu
+    Accounts, Payments, Profile, Transfers

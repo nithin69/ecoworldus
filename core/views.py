@@ -5,7 +5,7 @@ import stripe
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,8 +14,9 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
 
-from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
-from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile, Category, Fproducts, Contact, Subscribe
+from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm, UserCreationForm
+from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile, Category, Fproducts, Contact, Subscribe, Profile
+from django.contrib.auth.models import User
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -24,8 +25,11 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            savedForm = form.save()
+            phone = request.POST["phone"]
+            print("phone", phone)
             username = form.cleaned_data.get('username')
+            Profile.objects.create(user=User.objects.get(username = username), phone = phone)
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
@@ -60,6 +64,7 @@ class CheckoutView(View):
             order = Order.objects.get(user=self.request.user, ordered=False)
             print("order", order)
             form = CheckoutForm()
+            print("form2", form)
             context = {
                 'form': form,
                 'couponform': CouponForm(),
@@ -91,6 +96,7 @@ class CheckoutView(View):
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
+        print("form", form)
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
             if form.is_valid():
@@ -546,17 +552,17 @@ class RequestRefundView(View):
                 return redirect("core:request-refund")
 
 
-@login_required
+# @login_required
 def categoriesLst(request):
     categories = Category.objects.all()
     return render(request, 'all-products.html', {'categories' : categories})
 
-@login_required
+# @login_required
 def detailCategory(request, slug):
     items = Item.objects.filter(Category__category = slug)
     return render(request, 'detail-products.html', {'items':items})
 
-@login_required
+# @login_required
 def featuredProducts(request):
     fp = Fproducts.objects.all()
     return render(request, 'featured-products.html', {'fp':fp})
@@ -574,20 +580,34 @@ def contact(request):
         return render(request, 'contact.html', {})
 
 
-@login_required
+# @login_required
 def subscribe(request):
     if request.method == 'POST':
-        user = request.user
-        print('user', user.email)
-        su = Subscribe.objects.filter(email = user.email)
-        if su != "" and su != None:
-            Subscribe.objects.create(email = user.email)
+        print("request.user.is_authenticated()", request.user)
+        if request.user == "AnonymousUser" :
+            user = request.user
+            print('user', user.email)
+            su = Subscribe.objects.filter(email = user.email)
+            if su != "" and su != None:
+                Subscribe.objects.create(email = user.email)
+            return redirect('/')
+        else:
+            email = request.POST['subscribe_email']
+            su = Subscribe.objects.filter(email = email)
+            if su != "" and su != None:
+                Subscribe.objects.create(email = email)
+            print("Scb created")
+            return redirect('/')
 
-        # username = request.POST["username"]
-        # email = request.POST["email"]
-        # phone = request.POST["phone"]
-        # message = request.POST["message"]
-        # createObj = Contact.objects.create(name=username, email=email, phone=phone, message=message)
-        return redirect('/')
     else:
         return render(request, 'contact.html', {})
+
+@login_required
+def profile(request):
+    print("request.user", request.user)
+    try: 
+        userProfile = Profile.objects.get(user__username = request.user)
+    except:
+        userProfile = "You are using admin profile"
+    orders = Order.objects.filter(user = request.user)
+    return render(request, 'profile.html', {'userProfile' : userProfile, 'orders' : orders})

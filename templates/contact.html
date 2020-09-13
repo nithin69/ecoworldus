@@ -43,7 +43,7 @@
                         <div class="row clearfix">
                             <!--Form Group-->
                             <div class="form-group col-md-6 col-xs-12">
-                                <input type="text" name="username" value="" placeholder="First Name">
+                                <input type="text" name="username" value="" placeholder="First Name" required>
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
                                 <input type="text" name="lastname" value="" placeholder="Last Name">
@@ -51,15 +51,15 @@
 
                             <!--Form Group-->
                             <div class="form-group col-md-6 col-xs-12">
-                                <input type="text" name="email" value="" placeholder="Your Email">
+                                <input type="email" name="email" value="" placeholder="Your Email" required>
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
-                                <input type="text" name="phone" value="" placeholder="Phone">
+                                <input type="tel" name="phone" pattern="^\d{10}$" placeholder="Phone" required>
                             </div>
                             
                             <!--Form Group-->
                             <div class="form-group col-md-12 col-xs-12">
-                                <textarea name="message" placeholder="Message"></textarea>
+                                <textarea name="message" placeholder="Message" required></textarea>
                             </div>
                             
                             <!--Form Group-->

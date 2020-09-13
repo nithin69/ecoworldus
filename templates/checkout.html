@@ -10,11 +10,13 @@
         <h1 class="text-gray-900 text-4xl font-medium title-font mb-5"><b>Checkout form</b></h1>
             <form method="POST" class="card-body">
                 {% csrf_token %}
-
+                <!-- {{ form.as_p}} -->
                 <h2 class="text-gray-900 text-2xl font-medium title-font mb-5">Shipping address</h2>
                 <div class='hideable_shipping_form'>
                 <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="shipping_address" name="shipping_address" placeholder="Address" type="text"><br><br>
-                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="shipping_address2" name="shipping_address2" placeholder="Address 2 (optional)" type="text">
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="shipping_address2" name="shipping_address2" placeholder="Address 2 (optional)" type="text"><br><br>
+                <input type="text" class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" name="shipping_state" id="id_shipping_state" placeholder="Shipping State"><br><br>
+                <input type="text" class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" name="shipping_city" id="id_shipping_city" placeholder="Shipping City"><br>
                 <div class="container px-5 py-24 mx-auto">
                     <div class="flex flex-wrap -m-12">
                         <div class="p-12 md:w-1/2 flex flex-col items-start">
@@ -37,7 +39,9 @@
                 <h2 class="text-gray-900 text-2xl font-medium title-font mb-5">Billing Address</h2>
                 <div class='hideable_billing_form'>
                 <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="billing_address" name="billing_address" placeholder="Address" type="text"><br><br>
-                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="billing_address2" name="billing_address2" placeholder="Address 2 (optional)" type="text">
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" id="billing_address2" name="billing_address2" placeholder="Address 2 (optional)" type="text"><br><br>
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" type="text" name="billing_state" id="id_billing_state" placeholder="billing State"><br><br>
+                <input class="w-full bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" type="text" name="billing_city" id="id_billing_city" placeholder="billing City"><br>
                 <div class="container px-5 py-24 mx-auto">
                     <div class="flex flex-wrap -m-12">
                         <div class="p-12 md:w-1/2 flex flex-col items-start">
