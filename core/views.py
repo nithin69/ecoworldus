@@ -64,7 +64,7 @@ class CheckoutView(View):
             order = Order.objects.get(user=self.request.user, ordered=False)
             print("order", order)
             form = CheckoutForm()
-            print("form2", form)
+            # print("form2", form)
             context = {
                 'form': form,
                 'couponform': CouponForm(),
@@ -96,7 +96,7 @@ class CheckoutView(View):
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
-        print("form", form)
+        # print("form", form)
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
             if form.is_valid():
@@ -126,6 +126,10 @@ class CheckoutView(View):
                         'shipping_address2')
                     shipping_country = form.cleaned_data.get(
                         'shipping_country')
+                    shipping_state =  form.cleaned_data.get(
+                        'shipping_state')
+                    shipping_city =  form.cleaned_data.get(
+                        'shipping_city')
                     shipping_zip = form.cleaned_data.get('shipping_zip')
 
                     if is_valid_form([shipping_address1, shipping_country, shipping_zip]):
@@ -133,6 +137,8 @@ class CheckoutView(View):
                             user=self.request.user,
                             street_address=shipping_address1,
                             apartment_address=shipping_address2,
+                            state=shipping_state,
+                            city=shipping_city,
                             country=shipping_country,
                             zip=shipping_zip,
                             address_type='S'
@@ -189,6 +195,10 @@ class CheckoutView(View):
                         'billing_address2')
                     billing_country = form.cleaned_data.get(
                         'billing_country')
+                    billing_state =  form.cleaned_data.get(
+                        'billing_state')
+                    billing_city =  form.cleaned_data.get(
+                        'billing_city')                    
                     billing_zip = form.cleaned_data.get('billing_zip')
 
                     if is_valid_form([billing_address1, billing_country, billing_zip]):
@@ -197,6 +207,8 @@ class CheckoutView(View):
                             street_address=billing_address1,
                             apartment_address=billing_address2,
                             country=billing_country,
+                            state=billing_state,
+                            city=billing_city,                            
                             zip=billing_zip,
                             address_type='B'
                         )

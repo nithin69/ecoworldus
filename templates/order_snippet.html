@@ -1,3 +1,4 @@
+{% load mathfilters %}
 <div class="col-md-12 mb-4">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
     <span class="text-muted">Your cart</span>
@@ -10,7 +11,7 @@
         <h6 class="my-0">{{ order_item.quantity }} x {{ order_item.item.title}}</h6>
         <!-- <small class="text-muted">{{ order_item.item.description}}</small> -->
         </div>
-        <span class="text-muted">${{ order_item.get_final_price }}</span>
+        <span class="text-muted">$<b id="final_amount">{{ order_item.get_final_price }}</b></span>
     </li>
     {% endfor %}
     <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -18,7 +19,7 @@
         <h6 class="my-0">Shipping</h6>
         <!-- <small class="text-muted">{{ order_item.item.description}}</small> -->
         </div>
-        <span class="text-muted">$7.99</span>
+        <span class="text-muted">$<b id="shipping_amount">7.99</b></span>
     </li>
 
     {% if order.coupon %}
@@ -32,7 +33,7 @@
     {% endif %}
     <li class="list-group-item d-flex justify-content-between">
         <span>Total (USD) : </span>
-        <strong>${{ order.get_total }} </strong>
+        <strong>$ <b id="total_cost"></b> </strong>
         
     </li>
     </ul>
@@ -51,3 +52,17 @@
 
 </div>
 
+<script>
+    function sum() {
+              var txtFirstNumberValue = document.getElementById('shipping_amount').innerHTML;
+              console.log("txtFirstNumberValue", txtFirstNumberValue)
+              var txtSecondNumberValue = document.getElementById('final_amount').innerHTML;
+              console.log("txtSecondNumberValue", txtSecondNumberValue)
+              var result = parseFloat(txtFirstNumberValue) + parseFloat(txtSecondNumberValue);
+              if (!isNaN(result)) {
+                  document.getElementById('total_cost').innerHTML = result;
+              }
+              console.log("result", result)
+          }
+    window.onload=sum;
+</script>

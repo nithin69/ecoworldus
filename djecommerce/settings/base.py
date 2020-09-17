@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'pagedown.apps.PagedownConfig',
     'markdownify',
     'markdown_deux',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
