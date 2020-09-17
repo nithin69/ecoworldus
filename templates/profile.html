@@ -50,10 +50,10 @@
             <div id="Profile" class="tabcontent">
             <h3>Profile</h3>
             <p>
-                {% if userProfile.id != None or userProfile.id != "" %}
+                {% if userProfile.id == None or userProfile.id == "" %}
                     <p>{{ userProfile }}</p>
                 {% else %} 
-                    <table>
+                    <table class="table">
                         <tr>
                             <th>
                                 Profile Name
@@ -130,22 +130,37 @@
                                 {{ o.id }}
                             </td>
                             <td>
-                                {{ o.items }}
+                                {% for items in o.items.all %}
+                                    {{ items }}<br/>
+                                {% endfor %}
+
                             </td>
                             <td>
                                 {{ o.ordered_date }}
                             </td>
                             <td>
-                                {{ o.shipping_address }}
+                                {{ o.shipping_address.street_address }},
+                                {{ o.shipping_address.apartment_address }}<br>
+                                {{ o.shipping_address.state }},
+                                {{ o.shipping_address.city }},
+                                {{ o.shipping_address.country }},
+                                {{ o.shipping_address.zip }}
                             </td>
                             <td>
-                                {{ o.billing_address }}
+                                {{ o.billing_address.street_address }},
+                                {{ o.billing_address.apartment_address }}<br>
+                                {{ o.billing_address.state }},
+                                {{ o.billing_address.city }},
+                                {{ o.billing_address.country }},
+                                {{ o.billing_address.zip }}                                
                             </td>
                             <td>
                                 {% if being_delivered == True and received == False %}
                                     Order is InTransit
                                 {% elif received == True %}
                                     Order is Delecered
+                                {% elif ordered == False %}
+                                    Order Failed
                                 {% else %}
                                     Order is Under Processing
                                 {% endif %}

@@ -567,7 +567,7 @@ def featuredProducts(request):
     fp = Fproducts.objects.all()
     return render(request, 'featured-products.html', {'fp':fp})
 
-@login_required
+# @login_required
 def contact(request):
     if request.method == 'POST':
         username = request.POST["username"]
@@ -609,5 +609,5 @@ def profile(request):
         userProfile = Profile.objects.get(user__username = request.user)
     except:
         userProfile = "You are using admin profile"
-    orders = Order.objects.filter(user = request.user)
+    orders = Order.objects.filter(user = request.user).order_by("-id")
     return render(request, 'profile.html', {'userProfile' : userProfile, 'orders' : orders})

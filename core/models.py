@@ -113,6 +113,16 @@ class OrderItem(models.Model):
             return self.get_total_discount_item_price()
         return self.get_total_item_price()
 
+    def get_order_items(self):
+        print("entered 1")
+        ret = ''
+        print("my order items", self.OrderItem.all())
+        # use models.ManyToMany field's all() method to return all the Department objects that this employee belongs to.
+        for order_items in self.order_items.all():
+            ret = ret + order_items.item + ','
+        # remove the last ',' and return the value.
+        return ret[:-1]
+
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
