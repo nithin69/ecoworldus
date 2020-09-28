@@ -11,19 +11,18 @@ INSTALLED_APPS = [
     # 'jet',
     # 'material.admin',
     # 'material.admin.default',
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
-    # 'django_markdown',
     'django_countries',
     'pagedown.apps.PagedownConfig',
     'markdownify',
@@ -90,3 +89,35 @@ LOGIN_REDIRECT_URL = '/'
 # CRISPY FORMS
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+
+EMAIL_HOST = 'smtp-mail.outlook.com' # double check the settings in your outlook mailbox to make sure the host name is correct
+
+EMAIL_PORT = 587  # double check the settings in your outlook mailbox and make sure the port number is correct
+
+EMAIL_HOST_USER = 'info@ecoworldus.com'  # don't include the @blah.com part! I have made this stupid mistakes before
+
+EMAIL_HOST_PASSWORD = 'Manoj@967'
+
+EMAIL_USE_TLS = True
+
+EMAIL_USE_SSL = False
+
+
+##EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp-mail.outlook.com' # double check the settings in your outlook mailbox to make sure the host name is correct
+
+# EMAIL_PORT = 587  # double check the settings in your outlook mailbox and make sure the port number is correct
+
+# EMAIL_HOST_USER = 'info@ecoworldus.com'  # don't include the @blah.com part! I have made this stupid mistakes before
+
+# EMAIL_HOST_PASSWORD = 'Manoj@967'
+
+# EMAIL_USE_TLS = True
+
+# EMAIL_USE_SSL = False

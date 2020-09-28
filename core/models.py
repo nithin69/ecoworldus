@@ -57,7 +57,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
@@ -68,7 +67,8 @@ class Item(models.Model):
     slug = models.SlugField()
     description = models.TextField()
     # description = MarkdownField()
-    image = models.ImageField()
+    # image = models.ImageField()
+    # image =  models.ForeignKey(ItemImages, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -87,6 +87,13 @@ class Item(models.Model):
         return reverse("core:remove-from-cart", kwargs={
             'slug': self.slug
         })
+
+class ItemImages(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField()
+    fk_field = models.ForeignKey(Item, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.title
 
 
 class OrderItem(models.Model):

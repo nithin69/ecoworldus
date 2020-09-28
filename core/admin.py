@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Category, Fproducts, Contact, Subscribe, Profile
+from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Category, Fproducts, Contact, Subscribe, Profile, ItemImages
 from django.db import models
 
 from pagedown.widgets import AdminPagedownWidget
@@ -57,10 +57,16 @@ class AddressAdmin(admin.ModelAdmin):
     search_fields = ['user', 'street_address', 'apartment_address', 'zip']
 
 
+class ItemImagesInline(admin.TabularInline):
+    model = ItemImages
+
 class ItemAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget },
     }
+    
+    inlines = [ItemImagesInline]
+
 
 admin.site.register(Category)
 admin.site.register(Fproducts)
@@ -75,3 +81,4 @@ admin.site.register(Subscribe)
 admin.site.register(Profile)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(UserProfile)
+admin.site.register(ItemImages)
