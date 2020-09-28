@@ -15,7 +15,7 @@ from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
 
 from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm, UserCreationForm
-from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile, Category, Fproducts, Contact, Subscribe, Profile
+from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile, Category, Fproducts, Contact, Subscribe, Profile, ItemImages
 from django.contrib.auth.models import User
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -45,7 +45,7 @@ def create_ref_code():
 
 def products(request):
     context = {
-        'items': Item.objects.all()
+        'items': Item.objects.all(),
     }
     return render(request, "products.html", context)
 
@@ -412,7 +412,13 @@ class OrderSummaryView(LoginRequiredMixin, View):
 class ItemDetailView(DetailView):
     model = Item
     template_name = "product.html"
-
+    def get(self, request, slug):
+        print("slug", slug)
+        itemId = Item.objects.get(slug = slug)
+        itemImages = ItemImages.objects.filter(fk_field = itemId.id)
+        print("done")
+        
+        return render(request, self.template_name, {'itemId':itemId, 'itemImages': itemImages})
 
 @login_required
 def add_to_cart(request, slug):

@@ -67,7 +67,7 @@ class Item(models.Model):
     slug = models.SlugField()
     description = models.TextField()
     # description = MarkdownField()
-    # image = models.ImageField()
+    image = models.ImageField()
     # image =  models.ForeignKey(ItemImages, on_delete=models.CASCADE)
 
     def __str__(self):
